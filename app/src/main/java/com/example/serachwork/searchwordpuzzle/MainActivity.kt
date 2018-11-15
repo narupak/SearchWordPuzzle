@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
     var row2 : Int? = null
     var col1 : Int? = null
     var col2 : Int? = null
+    var textViews: ArrayList<TextView> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,15 +112,11 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
         var dataList = ArrayList<Char>()
         for (i in 0..gridsize - 1) {
             for (j in 0..gridsize - 1) {
-                //if(!datatable[i][j].equals(null)) {
                 var textView = TextView(this)
-                //var layout = LinearLayout(this)
-                //layout.setBackgroundColor(Color.RED)
                 val param = GridLayout.LayoutParams(
                     GridLayout.spec(GridLayout.UNDEFINED, 1f),
                     GridLayout.spec(GridLayout.UNDEFINED, 1f)
                 )
-                //param.columnSpec
                 dataList.add(dataGridReturn!![i][j])
                 textView.layoutParams = param
                 textView.text = dataGridReturn!![i][j].toString()
@@ -127,59 +124,7 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
                 textView.setBackgroundResource(R.drawable.border)
                 textView.gravity = Gravity.CENTER
                 textView.setTag(i.toString()+"+"+j)
-
-                //var canvass = Canvas()
-                //textView.draw()
-                //layout.addView(textView)
-                //layout.addView(canvass)
-                //var myView = MyView(this,i,j)
-//                textView.setOnTouchListener(View.OnTouchListener { v, event ->
-//                    when(event.action){
-//                        MotionEvent.ACTION_UP -> {
-//                            Log.d("TAG", "touched up")
-//                        }
-//                        MotionEvent.ACTION_DOWN->{
-//                            Log.d("TAG", "touched down")
-//                        }
-//                        MotionEvent.ACTION_MOVE->{
-//                            var index = event!!.pointerCount
-//                            var tag = textView.getTag()
-//                            Log.d("Tagxxxx",tag.toString())
-//                            //v!!.findViewById<View>(R.id.)
-//                            //grid.draw()
-//                            //gv!!.dispatchTouchEvent(event)
-//
-//
-//                            Log.d("xxxxxxxx",index.toString())
-//
-//
-//                        }
-//                    }
-//                    return@OnTouchListener true
-//                })
-//                textView.setOnTouchListener(eve : MotionEvent){
-//                    when(event!!.actionMasked){
-//                        MotionEvent.ACTION_UP -> {
-//                            Log.d("TAG", "touched up")
-//                        }
-//                        MotionEvent.ACTION_DOWN->{
-//                            Log.d("TAG", "touched down")
-//                        }
-//                        MotionEvent.ACTION_MOVE->{
-//                            var index = event!!.pointerCount
-//                            //v!!.findViewById<View>(R.id.)
-//                            //grid.draw()
-//                            //gv!!.dispatchTouchEvent(event)
-//
-//
-//                            Log.d("xxxxxxxx",index.toString())
-//
-//
-//                        }
-//                    false
-//                }
                 textView.setOnClickListener {
-                    //textView.setBackgroundColor(Color.RED)
                     if(statusClick == 0){
                         var tag = textView.getTag() as String
                         //Log.d("Tagxxxxx",tag)
@@ -189,31 +134,36 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
                         statusClick++
                     }else{
                         var tag = textView.getTag() as String
-                        //Log.d("Tagxxxxx",tag)
                         matrix2 = tag.split("+")
                         row2 = matrix2!![0].toInt()
                         col2 = matrix2!![1].toInt()
                         if(matrix1!![0].equals(matrix2!![0])){
-                            //for(row in 0..gridsize-1) {
-                                //var rowchild = ]
-                                //param.columnSpec = 4
-                                var numtrue = 0
+                                var numtrue = 1
+                                //var view = gv!!.getChildAt(row1!!) as View
+                                //var column = view
+                                //Log.d("viewxxxxx",view.toString())
                                 for (col in col1!!..col2!!) {
-                                    for(data in wordList){
-                                        if(data.wordChar.contains(dataGridReturn[row1!!][col])){
-                                            Log.d("Wordtrue", "true")
-                                            textView.setBackgroundColor(Color.RED)
-                                            numtrue += 1
-                                            break
-                                        }else{
-                                            Log.d("Wordfalse", "false")
-                                        }
-                                        if(numtrue == data.wordChar.length){
-                                            Log.d("Wordxxxxx", numtrue.toString())
-                                        }else{
-                                            Log.d("Wordxxxxx", numtrue.toString())
+                                    for(text in textViews!!){
+                                        Log.d("textxxxxx",(text.getTag() == (row1!!.toString()+"+"+col.toString())).toString())
+                                        if(text.getTag() == (row1!!.toString()+"+"+col.toString())) {
+                                            text.setBackgroundColor(Color.RED)
                                         }
                                     }
+//                                    for(data in wordList){
+//                                        if(data.wordChar.contains(dataGridReturn[row1!!][col])){
+//                                            Log.d("Wordtrue", dataGridReturn[row1!!][col].toString())
+//                                            numtrue += 1
+//                                            break
+//                                        }else{
+//                                            Log.d("Wordfalse", "false")
+//                                        }
+//                                        if(numtrue == data.wordChar.length){
+//                                            Log.d("Wordxxxxx", (numtrue == data.wordChar.length).toString())
+//                                            textView.setBackgroundColor(Color.RED)
+//                                        }else{
+//                                            Log.d("Wordxxxxx", (numtrue == data.wordChar.length).toString())
+//                                        }
+//                                    }
                                     //searchWord += dataGridReturn[row1!!][col]
                                 }
 
@@ -225,25 +175,36 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
                             Log.d("matrix",matrix1.toString()+" "+matrix2.toString())
                         }else if(matrix1!![1].equals(matrix2!![1])){
                             for(row in row1!!..row2!!){
-                                    searchWord += dataGridReturn[row][col2!!]
-                                //Log.d("Wordxxxxx",dataGridReturn[row][col2!!].toString())
-                                //tag.setBackgroundColor(Color.RED)
+                                for(text in textViews!!){
+                                    Log.d("textxxxxx",(text.getTag() == (row!!.toString()+"+"+col2.toString())).toString())
+                                    if(text.getTag() == (row!!.toString()+"+"+col2.toString())) {
+                                        text.setBackgroundColor(Color.RED)
+                                    }
+                                }
                             }
                             Log.d("Wordxxxxx",searchWord.toString())
                         }else{
                             if(row1!! < row2!!){
                                 var col = col1!!
                                 for(row in row1!!..row2!!){
-                                    searchWord += dataGridReturn[row][col]
-                                        //Log.d("Wordxxxxx",dataGridReturn[row][col].toString())
+                                    for(text in textViews!!){
+                                        Log.d("textxxxxx",(text.getTag() == (row.toString()+"+"+col.toString())).toString())
+                                        if(text.getTag() == (row.toString()+"+"+col.toString())) {
+                                            text.setBackgroundColor(Color.RED)
+                                        }
+                                    }
                                     col++
                                 }
                                 Log.d("Wordxxxxx",searchWord.toString())
                             }else{
                                 var column = col1!!
                                 for(row in row1!!.downTo(row2!!)){
-                                    searchWord += dataGridReturn[row][column]
-                                    //Log.d("Wordxxxxx",dataGridReturn[row][column].toString())
+                                    for(text in textViews!!){
+                                        Log.d("textxxxxx",(text.getTag() == (row.toString()+"+"+column.toString())).toString())
+                                        if(text.getTag() == (row.toString()+"+"+column.toString())) {
+                                            text.setBackgroundColor(Color.RED)
+                                        }
+                                    }
                                     column++
                                 }
                                 Log.d("Wordxxxxx",searchWord.toString())
@@ -256,55 +217,15 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
                 textView.setTextSize(20F)
                 textView.setPadding(20, 10, 40, 10)
                 gv!!.setPadding(10, 10, 10, 10)
+                //textViewList!!.add(textView)\
+                textViews.add(textView)
                 gv!!.addView(textView)
                 gv!!.columnCount = gridsize
                 gv!!.rowCount = gridsize
             }
         }
-//        val recyclerGrid = findViewById<View>(R.id.recyclerViewGrid) as RecyclerView
-//        var numberofColumn = 8
-//        val gridLayoutManager = GridLayoutManager(this,numberofColumn)
-//        //gridLayoutManager.spanCount = 64
-//        recyclerGrid.layoutManager = gridLayoutManager
-//        //gridLayoutManager.orientation = LinearLayout.VERTICAL
-//        myAdapter = Myadapter(dataList)
-//        recyclerGrid.adapter = myAdapter
 
     }
-
-//    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//        //var grid = v!!.findViewById<View>(R.id.gridLayout)
-//
-//        var x = event!!.x
-//        var y = event.y
-//
-//        when(event!!.actionMasked){
-//            MotionEvent.ACTION_UP -> {
-//                Log.d("TAG", "touched up")
-//            }
-//            MotionEvent.ACTION_DOWN->{
-//                Log.d("TAG", "touched down")
-//            }
-//            MotionEvent.ACTION_MOVE->{
-//                var index = event!!.pointerCount
-//                //v!!.findViewById<View>(R.id.)
-//                //grid.draw()
-//                //gv!!.dispatchTouchEvent(event)
-//
-//
-//                Log.d("xxxxxxxx",index.toString())
-//
-//
-//            }
-//        }
-//        return false
-//    }
-
-//    override fun onClick(v: View?) {
-//        Log.d("xxxx","click")
-//    }
-
-
 
         fun setWord(word: String, char: CharArray, gridsize: Int) : Array<CharArray>{
             var dataGrid  = Array(gridsize) { CharArray(gridsize) }
@@ -420,19 +341,6 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
                                 }
                                 if(status_recursive == 1) {
 
-
-//                                    var index_row_del_cross = (randomRow+(word.length)+1)
-//                                    for(addcol in ((randomCol + word.length)-1).downTo(randomCol)) {
-//                                        if (index_row_del_cross < randomRow - 1) {
-//                                            try {
-//                                                dataGrid[index_row_del_cross][addcol] = temp[index_row_del_cross][addcol]
-//                                                index_row_del_cross--
-//                                            } catch (e: Exception) {
-//
-//                                            }
-//                                        }
-//                                    }
-
                                     var index_row = randomRow
                                     var index_col = randomCol
 
@@ -442,33 +350,6 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
                                         index_row++
 
                                     }
-                                    //var index_del_cross = (randomRow - word.length)
-                                    //for (delrow in ((randomRow + word.length)-1).downTo(randomRow)){
-//                                        for(delcol in ((randomCol + word.length)-1).downTo(randomCol)){
-//                                            if(index_del_cross > randomRow) {
-//                                                try {
-//                                                    dataGrid[index_del_cross][delcol] = ' '
-//                                                    index_del_cross++
-//                                                }catch(e : Exception){
-//
-//                                                }
-//                                            }
-//
-//                                        }
-                                    //}
-                                    //for (addrow in ((randomRow + word.length)-1).downTo(randomRow)){
-//                                    var index_add_cross = (randomRow - word.length)+1
-//                                        for(addcol in ((randomCol + word.length)-1).downTo(randomCol)){
-//                                            if(index_add_cross > randomRow-1) {
-//                                                try {
-//                                                    dataGrid[index_add_cross][addcol] = temp[index_add_cross][addcol]
-//                                                    index_add_cross++
-//                                                }catch(e:Exception){
-//
-//                                                }
-//                                            }
-//                                        }
-                                   // }
 
                                     setWord(word, char, gridsize)
                                 }
@@ -509,7 +390,6 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickList
                                     }
                                 }
                             }
-                            //temp = Array(gv!!.rowCount) { CharArray(gv!!.columnCount) }
 //
                             setWord(word, char, gridsize)
                         }
