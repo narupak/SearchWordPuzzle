@@ -16,22 +16,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
+
         <android.support.v7.widget.GridLayout
-
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                app:rowCount="8"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="4dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
+                android:layout_height="308dp" android:layout_marginTop="16dp"
+                grid:layout_constraintTop_toTopOf="parent" grid:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/gridLayout" grid:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp">
 
-                grid:columnCount="8" android:id="@+id/gridLayout"
-                android:background="@drawable/border"
-                grid:layout_constraintHorizontal_bias="1.0" grid:layout_constraintVertical_bias="0.0">
+        </android.support.v7.widget.GridLayout>
+        <android.support.v7.widget.GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="267dp"
+                grid:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" grid:layout_constraintEnd_toEndOf="parent"
+                grid:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/gridLayouttextView"
+                grid:columnCount="4" grid:rowCount="4" android:layout_marginTop="8dp"
+                grid:layout_constraintTop_toBottomOf="@+id/gridLayout">
 
         </android.support.v7.widget.GridLayout>
     </android.support.constraint.ConstraintLayout>

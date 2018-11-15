@@ -1,9 +1,9 @@
 package com.example.serachwork.searchwordpuzzle
 
 class Word {
-    var wordChar : Char
+    var wordChar : String
 
-    constructor(wordChar: Char) {
+    constructor(wordChar: String) {
         this.wordChar = wordChar
     }
 }
